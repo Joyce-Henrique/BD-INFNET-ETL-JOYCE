@@ -1,0 +1,15 @@
+version: 2
+sources:
+  - name: consumo
+    database: maximal-evening-506322-g2
+    schema: projeto_infnet
+    tables: 
+      - name: DIM_ASSOCIADO
+      - name: DIM_CANAL
+      - name: DIM_INVESTIMENTO
+      - name: DIM_CONTA_CAPITAL
+      - name: DIM_CONTA_CORRENTE
+      - name: DIM_INSTITUICAO
+      - name: DIM_PERIODO_MOVIMENTO
+      - name: FATO_INVESTIMENTO
+     
