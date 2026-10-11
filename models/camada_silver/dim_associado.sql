@@ -63,3 +63,10 @@ SELECT
     NULLIF(NULLIF(LOWER(TRIM(`E-mail`)), 'n/a'), '') AS `E-mail`
 
 FROM {{ source('consumo', 'DIM_ASSOCIADO') }}
+
+-- Garante a remoção de CPFs nulos ou vazios e deduplica mantendo apenas a primeira ocorrência
+WHERE NULLIF(REGEXP_REPLACE(TRIM(CPF), r'[^0-9]', ''), '') IS NOT NULL
+QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY NULLIF(REGEXP_REPLACE(TRIM(CPF), r'[^0-9]', ''), '') 
+    ORDER BY Nome_Associado
+) = 1
