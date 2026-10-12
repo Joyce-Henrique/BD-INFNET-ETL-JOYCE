@@ -47,53 +47,53 @@ SELECT
     
     -- 1. FAIXA ETÁRIA
     CASE 
-        WHEN Idade < 25 THEN '1. Até 24 anos'
-        WHEN Idade BETWEEN 25 AND 34 THEN '2. 25 a 34 anos'
-        WHEN Idade BETWEEN 35 AND 44 THEN '3. 35 a 44 anos'
-        WHEN Idade BETWEEN 45 AND 54 THEN '4. 45 a 54 anos'
-        WHEN Idade >= 55 THEN '5. Acima de 55 anos'
+        WHEN Idade < 25 THEN 'Até 24 anos'
+        WHEN Idade BETWEEN 25 AND 34 THEN '25 a 34 anos'
+        WHEN Idade BETWEEN 35 AND 44 THEN '35 a 44 anos'
+        WHEN Idade BETWEEN 45 AND 54 THEN '45 a 54 anos'
+        WHEN Idade >= 55 THEN 'Acima de 55 anos'
         ELSE 'Não Informado'
     END AS faixa_etaria,
 
     -- 2. FAIXA DE RENDA (Usando a coluna Renda_Bruta)
     CASE 
-        WHEN Renda_Bruta <= 5000 THEN '1. Até R$ 5.000'
-        WHEN Renda_Bruta > 5000 AND Renda_Bruta <= 10000 THEN '2. R$ 5.001 a R$ 10.000'
-        WHEN Renda_Bruta > 10000 AND Renda_Bruta <= 20000 THEN '3. R$ 10.001 a R$ 20.000'
-        WHEN Renda_Bruta > 20000 THEN '4. Acima de R$ 20.000'
+        WHEN Renda_Bruta <= 5000 THEN 'Até R$ 5.000'
+        WHEN Renda_Bruta > 5000 AND Renda_Bruta <= 10000 THEN 'R$ 5.001 a R$ 10.000'
+        WHEN Renda_Bruta > 10000 AND Renda_Bruta <= 20000 THEN 'R$ 10.001 a R$ 20.000'
+        WHEN Renda_Bruta > 20000 THEN 'Acima de R$ 20.000'
         ELSE 'Não Informado'
     END AS faixa_renda,
 
     -- 3. FAIXA DE TEMPO DE ASSOCIADO
     CASE 
         WHEN Dt_Abertura IS NULL THEN 'Não Informado'
-        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) < 1 THEN '1. Menos de 1 ano'
-        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) BETWEEN 1 AND 3 THEN '2. 1 a 3 anos'
-        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) BETWEEN 4 AND 10 THEN '3. 4 a 10 anos'
-        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) > 10 THEN '4. Mais de 10 anos'
+        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) < 1 THEN 'Menos de 1 ano'
+        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) BETWEEN 1 AND 3 THEN '1 a 3 anos'
+        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) BETWEEN 4 AND 10 THEN '4 a 10 anos'
+        WHEN DATE_DIFF(CURRENT_DATE(), Dt_Abertura, YEAR) > 10 THEN 'Mais de 10 anos'
     END AS faixa_tempo_associado,
 
     -- 4. FAIXA DE TEMPO COMO INVESTIDOR
     CASE 
         WHEN primeira_data_aplicacao IS NULL THEN 'Não é investidor'
-        WHEN DATE_DIFF(CURRENT_DATE(), primeira_data_aplicacao, MONTH) <= 6 THEN '1. Novo (Até 6 meses)'
-        WHEN DATE_DIFF(CURRENT_DATE(), primeira_data_aplicacao, MONTH) <= 24 THEN '2. Intermediário (6 meses a 2 anos)'
-        WHEN DATE_DIFF(CURRENT_DATE(), primeira_data_aplicacao, MONTH) > 24 THEN '3. Veterano (Mais de 2 anos)'
+        WHEN DATE_DIFF(CURRENT_DATE(), primeira_data_aplicacao, MONTH) <= 6 THEN 'Novo (Até 6 meses)'
+        WHEN DATE_DIFF(CURRENT_DATE(), primeira_data_aplicacao, MONTH) <= 24 THEN 'Intermediário (6 meses a 2 anos)'
+        WHEN DATE_DIFF(CURRENT_DATE(), primeira_data_aplicacao, MONTH) > 24 THEN 'Veterano (Mais de 2 anos)'
     END AS faixa_tempo_investidor,
 
     -- 5. FAIXA POR MOVIMENTAÇÃO (Engajamento)
     CASE 
-        WHEN qtd_movimentacoes = 0 THEN '1. Sem Movimento'
-        WHEN qtd_movimentacoes BETWEEN 1 AND 5 THEN '2. Baixo Engajamento'
-        WHEN qtd_movimentacoes BETWEEN 6 AND 20 THEN '3. Médio Engajamento'
-        WHEN qtd_movimentacoes > 20 THEN '4. Alto Engajamento'
+        WHEN qtd_movimentacoes = 0 THEN 'Sem Movimento'
+        WHEN qtd_movimentacoes BETWEEN 1 AND 5 THEN 'Baixo Engajamento'
+        WHEN qtd_movimentacoes BETWEEN 6 AND 20 THEN 'Médio Engajamento'
+        WHEN qtd_movimentacoes > 20 THEN 'Alto Engajamento'
     END AS faixa_engajamento_conta,
 
     -- 6. PERFIL DE INVESTIDOR (Por volume financeiro)
     CASE 
-        WHEN volume_total_investido > 100000 THEN '1. High Yield (Alto Volume)'
-        WHEN volume_total_investido > 20000 THEN '2. Standard (Médio Volume)'
-        WHEN volume_total_investido > 0 THEN '3. Starter (Baixo Volume)'
+        WHEN volume_total_investido > 100000 THEN 'High Yield (Alto Volume)'
+        WHEN volume_total_investido > 20000 THEN 'Standard (Médio Volume)'
+        WHEN volume_total_investido > 0 THEN 'Starter (Baixo Volume)'
         ELSE 'Inativo'
     END AS perfil_investidor_calculado,
 

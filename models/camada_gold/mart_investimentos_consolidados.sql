@@ -75,33 +75,33 @@ SELECT
 
     -- Segmentação 1: Top Investidores
     CASE 
-        WHEN rank_maior_investidor_valor <= 10 THEN '1. Top 10 Investidores'
-        WHEN rank_maior_investidor_valor <= 50 THEN '2. Top 50 Investidores'
-        WHEN rank_maior_investidor_valor <= 100 THEN '3. Top 100 Investidores'
-        ELSE '4. Demais Investidores'
+        WHEN rank_maior_investidor_valor <= 10 THEN 'Top 10 Investidores'
+        WHEN rank_maior_investidor_valor <= 50 THEN 'Top 50 Investidores'
+        WHEN rank_maior_investidor_valor <= 100 THEN 'Top 100 Investidores'
+        ELSE 'Demais Investidores'
     END AS segmento_ranking_valor,
 
     -- Segmentação 2: Fidelidade/Tempo como Investidor
     CASE 
-        WHEN tempo_meses_como_investidor >= 60 THEN '1. Longo Prazo (Mais de 5 anos)'
-        WHEN tempo_meses_como_investidor >= 24 THEN '2. Médio Prazo (2 a 5 anos)'
-        WHEN tempo_meses_como_investidor > 0 THEN '3. Curto Prazo (Até 2 anos)'
+        WHEN tempo_meses_como_investidor >= 60 THEN 'Longo Prazo (Mais de 5 anos)'
+        WHEN tempo_meses_como_investidor >= 24 THEN 'Médio Prazo (2 a 5 anos)'
+        WHEN tempo_meses_como_investidor > 0 THEN 'Curto Prazo (Até 2 anos)'
         ELSE '4. Aplicação Única / Recente'
     END AS segmento_fidelidade_tempo,
     
     -- Segmentação 3 (Nova Sugestão): Perfil de Diversificação
     CASE
-        WHEN qtd_produtos_diferentes >= 4 THEN '1. Altamente Diversificado (4+ Produtos)'
-        WHEN qtd_produtos_diferentes BETWEEN 2 AND 3 THEN '2. Parcialmente Diversificado (2-3 Produtos)'
-        ELSE '3. Concentrado (Apenas 1 Produto)'
+        WHEN qtd_produtos_diferentes >= 4 THEN 'Altamente Diversificado (4+ Produtos)'
+        WHEN qtd_produtos_diferentes BETWEEN 2 AND 3 THEN 'Parcialmente Diversificado (2-3 Produtos)'
+        ELSE 'Concentrado (Apenas 1 Produto)'
     END AS segmento_diversificacao,
 
     -- Segmentação 4 (Nova Sugestão): Status de Engajamento / Risco de Saída
     CASE
-        WHEN DATE_DIFF(CURRENT_DATE(), ultima_aplicacao, MONTH) <= 3 THEN '1. Super Ativo (Investiu há menos de 3 meses)'
-        WHEN DATE_DIFF(CURRENT_DATE(), ultima_aplicacao, MONTH) <= 6 THEN '2. Ativo (Investiu entre 3 e 6 meses)'
-        WHEN DATE_DIFF(CURRENT_DATE(), ultima_aplicacao, MONTH) <= 12 THEN '3. Em Alerta (Sem investir há 6 a 12 meses)'
-        ELSE '4. Risco de Evasão (Sem novos aportes há mais de 1 ano)'
+        WHEN DATE_DIFF(CURRENT_DATE(), ultima_aplicacao, MONTH) <= 3 THEN 'Super Ativo (Investiu há menos de 3 meses)'
+        WHEN DATE_DIFF(CURRENT_DATE(), ultima_aplicacao, MONTH) <= 6 THEN 'Ativo (Investiu entre 3 e 6 meses)'
+        WHEN DATE_DIFF(CURRENT_DATE(), ultima_aplicacao, MONTH) <= 12 THEN 'Em Alerta (Sem investir há 6 a 12 meses)'
+        ELSE 'Risco de Evasão (Sem novos aportes há mais de 1 ano)'
     END AS status_recencia_investimento
 
 FROM base_consolidada
